@@ -10,6 +10,9 @@ class BST{
     bool search(int value); //which in this example is also our key
     bool deleteNode(int k);
 
+    TreeNode* destroyTree(TreeNode *node);
+    TreeNode* destroyTree();
+
     bool isEmpty();
     TreeNode* getMin();
     TreeNode* getMax();

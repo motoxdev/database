@@ -6,7 +6,7 @@ BST::BST(){
 }
 
 BST::~BST(){
-  //DO THIS ON MY OWN
+  destroyTree(root);
 }
 
 void BST::insert(int value){
@@ -48,15 +48,32 @@ void BST::insert(int value){
 }
 
 bool BST::search(int value){
-  //search
+  
 }
 
 bool BST::deleteNode(int k){
   //delete here
 }
 
+TreeNode* BST::destroyTree(TreeNode *node){
+  if(node != NULL){
+    delete node->right;
+    delete node->left;
+    delete node;
+  }
+}
+
+TreeNode* BST::destroyTree(){
+  destroyTree(root);
+}
+
 bool BST::isEmpty(){
-  //returns it is empty
+  if(root == NULL){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 TreeNode* BST::getMin(){
