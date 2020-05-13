@@ -584,12 +584,164 @@ void Simulation::addFileFaculty(int i, string n , string l, string d){
   treeFaculty.insert(fn);
   //repeated the same steps as the method above for students
 }
+//I needed to make a method in order to see if each response in the start screen was valid
+int Simulation::check(int x, int y, string z){
+  string asnwer;
+  int answerInt;
+  while(true){
+    cout << " " << z;
+    //variables for dummies
+    int answerInt = 0;
+    string answer = "";
+    cin >> answer;
+    try{
+      answerInt = stoi(answer);//checking to see if it is valid
+      if((answerInt < y) && (answerInt > 1)){
+        return answerInt;
+      }
+      else{
+        cout << "INVALID. PLEASE TRY AGAIN." << endl;
+      }
+    }
+    catch(exception i){
+      cout << "INVALID. PLEASE ENTER AN INTEGER." << endl;
+    }
+
+  }
+}
 
 void Simulation::run(){
   //method for the main method mainly
   bool running = true; //checks to see if my program is running
   while(running){
     int r;
-    //r = checkInput;
+    r = check(0, 15, "CHOOSE ONE OF THE FOLLOWING"); //spitting output to user
+    switch(r){ //using a switch statement for each of their responses
+      case 1: {
+        if(treeStudent.isEmpty()){ //if the tree is empty
+          cout << "STUDENT NOT FOUND" << endl; //printing there is nothing
+          break;
+        }
+        cout << endl;
+        printTreeStudent(treeStudent.getRoot());
+        break;
+      }
+      case 2: {
+        if(treeFaculty.isEmpty()){ //doing the same as we did for the student above
+          cout << "FACULTY MEMBER NOT FOUND" << endl;
+          break;
+        }
+        cout << endl;
+        printTreeFaculty(treeFaculty.getRoot());
+        break;
+      }
+      case 3:{
+        if(treeStudent.isEmpty()){
+          cout << "NO STUDENTS IN TREE" << endl;
+          break;
+        }
+        int t;
+
+        while(true){
+          t = check(0,10000, "ENTER STUDENT ID");
+          if(treeStudent.search(t)){
+            showStudentInfo(t);//shows the information of student typed in
+            break;
+          }
+          else{
+            cout << "STUDENT NOT IN SYSTEM. PLEASE ENTER VALID STUDENT ID" << endl;
+          }
+        }
+        break;
+      }
+      case 4:{
+        if(treeFaculty.isEmpty()){
+          cout << "FACULTY TREE IS EMPTY" << endl;
+          break;
+        }
+        int t;
+        while(true){
+          t = check(0,10000, "ENTER FACULTY ID");
+          if(treeFaculty.search(t)){
+            showFacultyInfo(t);
+            break;
+          }
+        }
+        break;
+      }
+      case 5:{
+        if(treeStudent.isEmpty()){
+          cout << "STUDENT TREE IS EMPTY" << endl;
+          break;
+        }
+        int t;
+        cout << "STUDENTS IN SYSTEM: " << endl;
+        printTreeStudent(treeStudent.getRoot());
+        while(true){
+          t = check(0,1000,"ENTER STUDENT ID");
+          if(treeStudent.search(t)){
+            showFacultyInfo(treeStudent.search(t)->getAdvisor());
+            break;
+          }
+          else{
+            cout << "STUDENT NOT IN SYSTEM. ENTER VALID ID" << endl;
+          }
+        }
+        break;
+      }
+      case 6:{
+        if(treeFaculty.isEmpty()){
+          cout << "NO FACULTY IN SYSTEM" << endl;
+          break;
+        }
+        int t;
+        while(true){
+          t = check(0,1000,"INPUT FACULTY ID");
+          if(treeFaculty.search(t)){
+            Faculty *fact = treeFaculty.search(t);
+            for(int i = 0; i < fact->maxSize(); ++i){
+              if(fact->adviseeArr[i] != -1){
+                showStudentInfo(fact->adviseeArr[i]);
+              }
+            }
+            break;
+          }
+          else{
+            cout << "FACULTY MEMBER IS NOT IN SYSTEM. ENTER VALID ID." >> endl;
+          }
+        }
+        break;
+      }
+      case 7:{
+        addStudent();
+        cout << "STUDENT ADDED." << endl;
+        break;
+      }
+      case 8:{
+        int t;
+        if(treeStudent.isEmpty()){
+          cout<< "NO STUDENTS IN SYSTEM." << endl;
+          break;
+        }
+        cout << "CURRENT STUDENTS IN SYSTEM: " << endl;
+        printTreeStudent(treeStudent.getRoot());
+        while(true){
+          t = check(0,1000,"ENTER STUDENT ID");
+          if(treeStudent.search(t)){
+            if(treeStudent.search(t)->getAdvisor() != 0){
+              treeFaculty.search(treeStudent.search(t)->getAdvisor();//->//remove the advisee
+            }
+            treeStudent.deleteNode(t);
+            cout << "STUDENT DELETED" << endl;
+            break;
+          }
+          else{
+            cout << "STUDENT NOT FOUND. ENTER VALID STUDENT ID." << endl;
+          }
+        }
+        break;
+      }
+      case 9: 
+    }
   }
 }

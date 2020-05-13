@@ -11,7 +11,7 @@ class Simulation{
     //nodes
     TreeNode<Student>* getTreeStudentRoot(); //gets the root node of students
     TreeNode<Faculty>* getTreeFacultyRoot(); //gets root node of faculty
-    //constructors
+    //constructors2222
     Simulation();
     ~Simulation();
     //student methods
