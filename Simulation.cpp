@@ -12,6 +12,14 @@ Simulation::~Simulation(){
 
 }
 
+TreeNode<Student>* Simulation::getTreeStudentRoot(){
+  return treeStudent.getRoot();
+}
+
+TreeNode<Faculty>* Simulation::getTreeFacultyRoot(){
+    return treeFaculty.getRoot();
+}
+
 void Simulation::printTreeStudent(TreeNode<Student> *st){
   if(st != NULL){
     //left side of the tree
@@ -31,7 +39,7 @@ void Simulation::printTreeStudent(TreeNode<Student> *st){
 
 void Simulation::outputTreeStudent(TreeNode<Student> *st, string file){
   ofstream f;
-  f.open(file,true);
+  //f.open(file,true);
   if(st != NULL){
     cout << "FILE NAME: " << file << endl;
     //now we are going to create the so-called table within the file they gave us to write to
@@ -70,7 +78,7 @@ void Simulation::addStudent(){
   string l;
   double a;
   string m;
-  int a;
+  int aid;
   //answer formats
   string answer = "";
   double answerDouble = 0.0;
@@ -79,7 +87,7 @@ void Simulation::addStudent(){
     cout << "INPUT ID OF STUDENT YOU WISH TO ADD" << endl;
     answerInt = 0;
     answer = "";
-    cin >> answer >> endl;
+    cin >> answer;
     try{
       i = stoi(answer);
       if(i > 0){
@@ -98,7 +106,6 @@ void Simulation::addStudent(){
       cout << "INVALID, PLEASE TRY AGAIN" << endl;
     }
   }
-string l;
 cout << "TYPE IN THE FOLLOWING FOR NEW STUDENT" << endl;
 cout << "NAME: " << endl;
 cin.ignore();
@@ -112,7 +119,7 @@ while(true){
   cin >> answer;
   try{
     a = stod(answer);
-    if((g > 0) &&(g < 5)){ //limiting gpa answer between 0 and 5
+    if((a > 0) &&(a < 5)){ //limiting gpa answer between 0 and 5
       break;
     }
     else{
@@ -181,8 +188,8 @@ else{
 }
 //creating the new student
 Student *ns = new Student(i,n,l,a,m,a);
-TreeNode<Student> *sn = new TreeNode<Student>(sn, i);
-treeStudent.insert(sn);
+//TreeNode<Student> *sn = new TreeNode<Student>(sn, i);
+//treeStudent.insert(sn);
 }
 
 void Simulation::printTreeFaculty(TreeNode<Faculty>*f){
@@ -203,19 +210,19 @@ void Simulation::printTreeFaculty(TreeNode<Faculty>*f){
 
 void Simulation::outputTreeFaculty(TreeNode<Faculty> *fac, string s){
   ofstream f;
-  f.open(s,true);
+  //f.open(s,true);
   if(fac != NULL){
     //outputting to file
     f << "__________" << endl;
     f << fac->data->getID() << endl;
-    f << fac->data->getName() << endl
+    f << fac->data->getName() << endl;
     f << fac->data->getLevel() << endl;
     f << fac->data->getDepartment() << endl;
     f << fac->data->getAdviseeID() << endl;
 
     if(fac->data->getAdviseeID() > 0){
       //filtering through array
-      for(int i = 0; i < fav->data->maxSize; ++i){
+      for(int i = 0; i < fac->data->maxSize; ++i){
         if(fac->data->adviseeArr[i] != 0){
           //checking to see if this is a valid advisor
           f << fac->data->adviseeArr[i] << endl;
@@ -273,8 +280,6 @@ void Simulation::addFaculty(){
       cout << "INVALID FACULTY MEMBER ID. PLEASE TRY AGAIN." << endl;
     }
   }
-
-  string l;
   cout << "NAME: " << endl;
   cin.ignore();
   getline(cin, n);
@@ -549,7 +554,7 @@ void Simulation::writeFile(string file1, string file2){
   treeStudentFile.open(file1);
   if(treeStudentFile.is_open()){ //opening the file
     treeStudentFile << treeStudent.getSize() << endl;
-    TreeNode<Student> *stud = treeStudent.getTreeStudentRoot(); //creating the note
+    TreeNode<Student> *stud = treeStudent.getRoot(); //creating the note
     outputTreeStudent(stud, file1); //outputting that node/student person to file
   }
   treeStudentFile.close(); //close student file
@@ -557,7 +562,7 @@ void Simulation::writeFile(string file1, string file2){
   treeFacultyFile.open(file2);
   if(treeFacultyFile.is_open()){ //opening the file
     treeFacultyFile << treeFaculty.getSize() << endl;
-    TreeNode<Faculty> *fact = treeFaculty.getTreeFacultyRoot(); //creating the note
+    TreeNode<Faculty> *fact = treeFaculty.getRoot(); //creating the note
     outputTreeFaculty(fact, file2); //outputting that node/faculty person to file
   }
   treeFacultyFile.close(); //closing file

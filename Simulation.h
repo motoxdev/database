@@ -9,8 +9,8 @@ class Simulation{
     BST<Student> treeStudent; //making a bst of students
     BST<Faculty> treeFaculty; //making a bst of faculty
     //nodes
-    TreeNode<Student>* getRoot(); //gets the root node of students
-    TreeNode<Faculty>* getRoot(); //gets root node of faculty
+    TreeNode<Student>* getTreeStudentRoot(); //gets the root node of students
+    TreeNode<Faculty>* getTreeFacultyRoot(); //gets root node of faculty
     //constructors
     Simulation();
     ~Simulation();
@@ -30,7 +30,9 @@ class Simulation{
     void addFileStudent(int i, string n, string l, double a, string m, int aid);
     void addFileFaculty(int i, string n, string l, string d);
     //method function
+    int check(int x, int y, string z);
     void run();
+
   //private:
   //no private vars/methods
 };
