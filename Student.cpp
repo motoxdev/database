@@ -9,7 +9,7 @@ Student::~Student(){
 
 }
 
-Student::Student(int i, string n, string l, string m, double a, int aid){
+Student::Student(int i, string n, string l, double a, string m, int aid){
   ID = i;
   name = n;
   level = l;

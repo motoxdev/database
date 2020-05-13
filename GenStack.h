@@ -1,31 +1,95 @@
-#include <iostream>
-using namespace std;
+template <class T>
 
 class GenStack
 {
-  public:
-    //SETUP
-    GenStack(); //default constructor
-    GenStack(int maxSize);//overload constructor for choice of size
-    ~GenStack(); //destructor
+	public:
+		GenStack();
+		GenStack(int maxSize);
+		~GenStack();
 
-    //OPERATIONS
-    void push(char data); //push char onto the stack
-    char pop(); //returns top elem and removes it
-    bool isFull(); //is it full?
-    bool isEmpty(); //is it empty?
-    char peek(); //returns top value on the stack
-    void resize();//automatically makes stack larger once full
+		void push(T data);
+		T pop();
+		T peek();
 
-    bool check(string filename); //going to check for deliminators, returning true or false
+		int isFull();
+		int isEmpty();
 
-    //VARIABLES
-    int mSize; //maximum size of stack
-    int top; //variable to keep track of index representing the top of our stack
-
-    char *myArray; // declaring a pointer that will be initialized to a place in memory at run time.
-                  //from this we can find any element bc arrays are contiguous
-    char t; //temporary variable for check method
-
-
+		int top;
+		int max;
+		T *myArray;
 };
+
+template <class T>
+GenStack<T>::GenStack(){};
+
+template <class T>
+GenStack<T>::GenStack(int maxSize)
+{
+	myArray = new T[maxSize];
+	max = maxSize;
+	top = -1;
+}
+
+template <class T>
+GenStack<T>::~GenStack()
+{
+	delete myArray;
+}
+
+template <class T>
+void GenStack<T>::push(T data)
+{
+	// IF FULL, DOUBLE SIZE
+	if (top == max - 1)
+	{
+		T *temp1 = new T[max];
+
+		for (int i = 0; i < max; ++i)
+		{
+			temp1[i] = myArray[i];
+		}
+
+		myArray = new T[max * 2];
+
+		for (int i = 0; i < max; ++i)
+		{
+			myArray[i] = temp1[i];
+		}
+
+		max *= 2;
+	}
+
+	myArray[++top] = data;
+}
+
+template <class T>
+T GenStack<T>::pop()
+{
+	if (top != -1)
+	{
+		return myArray[top--];
+	}
+
+	else
+	{
+		return 0;
+	}
+}
+
+template <class T>
+T GenStack<T>::peek()
+{
+	return myArray[top];
+}
+
+template <class T>
+int GenStack<T>::isFull()
+{
+	return (top == max-1);
+}
+
+template <class T>
+int GenStack<T>::isEmpty()
+{
+	return (top == -1);
+}

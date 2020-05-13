@@ -11,7 +11,7 @@ class Student: public Person{
     //constructors
     Student();
     ~Student();
-    Student(int i, string n, string l, string m, double gpa, int aid);
+    Student(int i, string n, string l, double gpa, string m, int aid);
     //get methods
     string getMajor(); //gets major
     double getGPA(); //returns gpa

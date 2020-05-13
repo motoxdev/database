@@ -1,13 +1,36 @@
-class TreeNode{
-public:
-  TreeNode();
-  TreeNode(int key);
-  //TreeNode(int key, <type>value);
-  ~TreeNode();
-  //when working with template classes
-  //virtual ~TreeNode();  //RESEARCH WHY WE NEED THIS
+#include <iostream>
+using namespace std;
 
-  int key;
-  TreeNode *left;
-  TreeNode *right;
+template <class T>
+class TreeNode
+{
+    public:
+
+        T* data;
+        int key;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode()
+        {
+            data = T();
+            key = -1;
+            left = NULL;
+            right = NULL;
+        }
+
+        TreeNode(T* d, int k)
+        {
+            data = d;
+            key = k;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode()
+        {
+            delete left;
+            delete right;
+            delete data;
+        }
 };
